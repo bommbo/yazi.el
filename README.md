@@ -16,3 +16,4 @@ Yazi file manager integration for Emacs using term.el
 # Function
 
 yazi
+yazi-cd
