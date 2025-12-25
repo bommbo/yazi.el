@@ -44,6 +44,7 @@
 (defun yazi--setup-environment ()
   "Setup environment variables for yazi."
   (let ((process-environment (copy-sequence process-environment)))
+    (setenv "COLORTERM" "truecolor")
     (setenv "EDITOR" "emacsclient")
     (setenv "VISUAL" "emacsclient")
     (unless (getenv "LANG")
