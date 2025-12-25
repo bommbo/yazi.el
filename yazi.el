@@ -70,28 +70,26 @@
     
     ;; Create term buffer
     (let ((buf (apply #'make-term "yazi" "yazi" nil args)))
-      (with-current-buffer buf
-        ;; Disable interfering modes
-        (when (fboundp 'meow-mode)
-          (meow-mode -1))
-        
-        ;; Enter char mode for direct key input
-        (term-char-mode)
-        
-        ;; Setup process
-        (let ((proc (get-buffer-process buf)))
-          (when proc
-            (set-process-sentinel proc #'yazi--process-sentinel)
-            (set-process-window-size proc (window-body-height) (window-body-width))))
-        
-        ;; Hide UI elements
-        (setq mode-line-format nil
-              cursor-type nil)
-        (when (bound-and-true-p display-line-numbers-mode)
-          (display-line-numbers-mode -1)))
-      
-      (setq yazi--buffer buf)
-      buf)))
+  (with-current-buffer buf
+    (when (fboundp 'meow-mode)
+      (meow-mode -1))
+    
+    (term-char-mode)
+    
+    (let ((proc (get-buffer-process buf)))
+      (when proc
+        (set-process-sentinel proc #'yazi--process-sentinel)
+        (set-process-window-size proc (window-body-height) (window-body-width))))
+    
+    (setq mode-line-format nil
+          cursor-type nil)
+    (internal-show-cursor nil nil)
+    
+    (when (bound-and-true-p display-line-numbers-mode)
+      (display-line-numbers-mode -1)))
+  
+  (setq yazi--buffer buf)
+  buf)))
 
 (defun yazi--show-buffer (buf)
   "Display yazi BUF in full screen."
