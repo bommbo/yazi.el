@@ -100,6 +100,7 @@
 
 (defun yazi--process-output ()
   "Process yazi output: either call callback (chooser mode) or change directory (cwd mode)."
+  (internal-show-cursor nil t)
   ;; Restore window config
   (when yazi--window-config
     (set-window-configuration yazi--window-config)
